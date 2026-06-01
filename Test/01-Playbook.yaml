@@ -1,5 +1,5 @@
 - name: Shell
   hosts: frontend
   tasks:
-    -name: Pinging the server
-    ping:
+    - name: Pinging the server
+      ping:
