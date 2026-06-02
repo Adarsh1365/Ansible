@@ -3,6 +3,6 @@
   vars_files:
     - VarsFile.yaml
   tasks:
-    -name: Print FileVars
-    debug:
-      msg: "{{ Name }} is learning {{ Course }}"
+    - name: Print FileVars
+      debug:
+        msg: "{{ Name }} is learning {{ Course }}"
