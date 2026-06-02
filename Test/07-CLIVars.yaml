@@ -1,0 +1,6 @@
+- name: Command line vars
+  hosts: frontend
+  tasks:
+    -name: Command line vars
+    debug:
+      msg: "{{ Name }} is learning {{ Course }}"
