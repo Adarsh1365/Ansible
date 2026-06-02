@@ -8,6 +8,6 @@
       prompt: "Please Enter Password:"
       private: true
   tasks:
-    -name: loading prompt vars
-    debug:
-      msg: "Username is : {{ Username }} and Password is : {{ Password }}"
+    - name: loading prompt vars
+      debug:
+        msg: "Username is : {{ Username }} and Password is : {{ Password }}"
