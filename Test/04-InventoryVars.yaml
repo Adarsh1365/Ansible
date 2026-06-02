@@ -1,0 +1,6 @@
+- name: Inventory Vars
+  hosts: frontend
+  tasks:
+    - name: loading Inventory vars
+      debug:
+        msg: "{{ Name }} is learning {{ Course }}"
