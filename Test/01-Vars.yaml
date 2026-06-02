@@ -4,6 +4,6 @@
     Course: Devops
     Name: Adarsh
   tasks:
-    -name: Task level args
-    debug:
-      msg: "{{ Name }} is learning {{ Course }}"
+    - name: Task level args
+      debug:
+        msg: "{{ Name }} is learning {{ Course }}"
