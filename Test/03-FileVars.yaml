@@ -1,0 +1,8 @@
+- name: File vars
+  hosts: frontend
+  vars_file:
+    VarsFile.yaml
+  tasks:
+    -name: Print FileVars
+    debug:
+      msg: "{{ Name }} is learning {{ Course }}"

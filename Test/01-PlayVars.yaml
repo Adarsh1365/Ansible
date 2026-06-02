@@ -5,8 +5,5 @@
     Name: Adarsh
   tasks:
     - name: Task level args
-      vars:
-        Course: Java
-        Name: Hemdheer
       debug:
         msg: "{{ Name }} is learning {{ Course }}"

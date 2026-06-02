@@ -1,0 +1,10 @@
+- name : Task level args
+  hosts: frontend
+  tasks:
+    - name: Task level args
+      vars:
+        Name: Hemdheer
+        Course: Java
+      debug:
+        msg: "{{ Name }} is learning {{ Course }}"
+
