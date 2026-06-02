@@ -1,5 +1,5 @@
 - name: playbook level vars
-  host: frontend
+  hosts: frontend
   vars:
     Course: Devops
     Name: Adarsh
