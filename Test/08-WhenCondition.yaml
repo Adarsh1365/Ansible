@@ -1,0 +1,10 @@
+- name: when condition
+  hosts: frontend
+  vars:
+    num: 30
+  tasks:
+    - name: check when condition
+      debug:
+        msg: "num is greater than 30"
+        when: num > 30
+
