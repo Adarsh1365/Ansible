@@ -17,6 +17,6 @@
         enabled: yes
     - name: start mysql
       service:
-        name: mysqld
+        name: mysql
         state: started
         enabled: yes
