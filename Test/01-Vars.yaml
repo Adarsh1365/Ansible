@@ -3,7 +3,7 @@
   vars:
     Course: Devops
     Name: Adarsh
-  task:
+  tasks:
     -name: Task level args
     debug:
       msg: "{{ Name }} is learning {{ Course }}"
