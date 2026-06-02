@@ -2,4 +2,5 @@
   hosts: frontend
   tasks:
     - name: Pinging the server
-      ping:
+      debug:
+        msg: "Hi im from 172.31.20.156"
