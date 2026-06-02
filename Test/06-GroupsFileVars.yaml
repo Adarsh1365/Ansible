@@ -1,0 +1,6 @@
+- name: Group folder vars
+  hosts: frontend
+  tasks:
+    - name: Group folder vars
+      debug:
+        msg: "{{ Name }} is learning {{ Course }}"
