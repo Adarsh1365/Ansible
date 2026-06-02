@@ -1,9 +1,12 @@
 - name: playbook level vars
   hosts: frontend
   vars:
-    Course: Devops
-    Name: Adarsh
+    Course: Java
+    Name: Hemdheer
   tasks:
     - name: Task level args
+      vars:
+        Course: Devops
+        Name: Adarsh
       debug:
         msg: "{{ Name }} is learning {{ Course }}"
