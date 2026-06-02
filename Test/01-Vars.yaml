@@ -1,0 +1,9 @@
+- name: playbook level vars
+  host: frontend
+  vars:
+    Course: Devops
+    Name: Adarsh
+  task:
+    -name: Task level args
+    debug:
+      msg: "{{ Name }} is learning {{ Course }}"
