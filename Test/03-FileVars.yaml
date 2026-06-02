@@ -1,7 +1,7 @@
 - name: File vars
   hosts: frontend
-  vars_file:
-    VarsFile.yaml
+  vars_files:
+    - VarsFile.yaml
   tasks:
     -name: Print FileVars
     debug:
