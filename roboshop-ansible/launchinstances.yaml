@@ -3,12 +3,12 @@
   connection: local
   vars:
     instances: ["mongodb", "mysql"]
-    ami-id: ami-0220d79f3f480ecf5
-    domain-name: adarshdevopslearn.online
+    ami_id: ami-0220d79f3f480ecf5
+    domain_name: adarshdevopslearn.online
   tasks:
     amazon.aws.ec2_instance:
       instance_type: t3.micro
-      image_id: "{{ ami-id }}"
+      image_id: "{{ ami_id }}"
       security_groups:
         - roboshop-common
         - "roboshop-{{ item }}"
