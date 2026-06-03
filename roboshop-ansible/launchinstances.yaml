@@ -73,5 +73,5 @@
         ttl: 1
       loop: "{{ instances }}"
       when:
-        - action == "create"
+        - action == "delete"
         - item == "frontend"
