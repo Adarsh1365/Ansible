@@ -1,0 +1,19 @@
+- name: Launch Intances
+  hosts: local
+  connection: local
+  vars:
+    instances: ["mongodb"]
+    ami-id: ami-0220d79f3f480ecf5
+    domain-name: adarshdevopslearn.online
+  tasks:
+    amazon.aws.ec2_instance:
+      instance_type: t3.micro
+      image_id: "{{ ami-id }}"
+      security_groups:
+        - roboshop-common
+        - "roboshop-{{ item }}"
+      name: "roboshop-{{ item }}"
+    loop: instances
+    register: ec2_data
+    debug:
+      msg: {{ ec2_data }}
