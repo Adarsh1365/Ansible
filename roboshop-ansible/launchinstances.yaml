@@ -2,7 +2,7 @@
   hosts: local
   connection: local
   vars:
-    instances: ["mongodb"]
+    instances: ["mongodb", "mysql"]
     ami-id: ami-0220d79f3f480ecf5
     domain-name: adarshdevopslearn.online
   tasks:
