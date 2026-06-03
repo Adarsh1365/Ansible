@@ -16,4 +16,4 @@
     loop: instances
     register: ec2_data
     debug:
-      msg: {{ ec2_data }}
+      msg: "{{ ec2_data }}"
