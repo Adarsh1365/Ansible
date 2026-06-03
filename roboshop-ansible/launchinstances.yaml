@@ -18,7 +18,7 @@
         state: present
       loop: "{{ instances }}"
       register: ec2_data
-      when: "{{ action }}" == "create"
+      when: action == "create"
 
     - name: Create 53 records
       amazon.aws.route53:
@@ -30,7 +30,7 @@
         value: "{{ item.instances[0].private_ip_address }}"
         overwrite: true
       loop: "{{ ec2_data.results }}"
-      when: "{{ action }}" == "create"
+      when: action == "create"
 
     - name: Create frontend 53 records
       amazon.aws.route53:
@@ -43,8 +43,8 @@
         overwrite: true
       loop: "{{ ec2_data.results }}"
       when:
-        - "{{ action }}" == "create"
-        - "{{ item.item }}" == "frontend"
+        - action == "create"
+        - item.item == "frontend"
 
     - name: delete instances
       amazon.aws.ec2_instance:
@@ -52,7 +52,7 @@
         state: absent
         wait: false
       loop: "{{ instances }}"
-      when: "{{ action }}" == "delete"
+      when: action == "delete"
 
     - name: delete 53 records
       amazon.aws.route53:
@@ -62,7 +62,7 @@
         type: A
         ttl: 1
       loop: "{{ instances }}"
-      when: "{{ action }}" == "delete"
+      when: action == "delete"
 
     - name: Delete frontend 53 records
       amazon.aws.route53:
@@ -73,5 +73,5 @@
         ttl: 1
       loop: "{{ instances }}"
       when:
-        - "{{ action }}" == "create"
-        - "{{ item }}" == "frontend"
+        - action == "create"
+        - item == "frontend"
