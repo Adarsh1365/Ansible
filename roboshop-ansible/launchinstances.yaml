@@ -15,7 +15,7 @@
           - "roboshop-{{ item }}"
         name: "roboshop-{{ item }}"
         state: present
-      loop: instances
+      loop: "{{ instances }}"
       register: ec2_data
 
     - name: print result
