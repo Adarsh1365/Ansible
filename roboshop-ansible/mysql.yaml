@@ -5,6 +5,7 @@
     - name: Install Mysql server
       package:
         name: mysql-server
+        state: present
     - name:
         service:
           name: mysqld
