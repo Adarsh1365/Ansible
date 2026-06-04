@@ -19,16 +19,19 @@
         comment: 'roboshop system user'
 
     - name: delete app folder
-      path: /app
-      state: absent
+      file:
+        path: /app
+        state: absent
 
     - name: delete temp file
-      path: /temp/catalogue.zip
-      state: absent
+      file:
+        path: /temp/catalogue.zip
+        state: absent
 
     - name: create new app folder
-      path: /app
-      state: directory
+      file:
+        path: /app
+        state: directory
 
     - name: download code
       get_url:
