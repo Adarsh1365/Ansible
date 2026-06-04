@@ -7,7 +7,7 @@
 
     - name: Install NodeJs
       package:
-        name: Nodejs
+        name: nodejs
         state: present
 
     - name: Create Systemuser
