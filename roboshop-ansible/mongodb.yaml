@@ -1,1 +1,8 @@
 - name: Install Mongodb
+  hosts: mongodb
+  tasks:
+    - name: copy mongo repo file
+      copy:
+        src: ./mongo.repo
+        dest: /etc/yum.repos.d/mongo.repo
+        
