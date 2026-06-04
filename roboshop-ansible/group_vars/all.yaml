@@ -4,3 +4,4 @@ MONGODB_HOST: mongodb.adarshdevopslearn.online
 REDIS_HOST: redis.adarshdevopslearn.online
 MYSQL_HOST: mysql.adarshdevopslearn.online
 RABBITMQ_HOST: rabbitmq.adarshdevopslearn.online
+CATALOGUE_HOST: catalogue.adarshdevopslearn.online

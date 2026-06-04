@@ -25,7 +25,7 @@
 
     - name: delete temp file
       file:
-        path: /temp/catalogue.zip
+        path: /tmp/catalogue.zip
         state: absent
 
     - name: create new app folder
