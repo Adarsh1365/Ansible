@@ -1,0 +1,67 @@
+- name: Setting Catalogue
+  hosts: user
+  become: yes
+  tasks:
+    - name: Enable NodeJs
+      command: dnf module enable nodejs:20 -y
+
+    - name: Install NodeJs
+      package:
+        name: nodejs
+        state: present
+
+    - name: Create Systemuser
+      user:
+        name: roboshop
+        system: true
+        home: /app
+        shell: /sbin/nologin
+        comment: 'roboshop system user'
+
+    - name: delete app folder
+      file:
+        path: /app
+        state: absent
+
+    - name: delete temp file
+      file:
+        path: /temp/user.zip
+        state: absent
+
+    - name: create new app folder
+      file:
+        path: /app
+        state: directory
+
+    - name: download code
+      get_url:
+        url: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
+        dest: /tmp/user.zip
+
+    - name: Unzip File
+      unarchive:
+        src: /tmp/user.zip
+        dest: /app
+        remote_src: yes
+
+    - name: install npm dependencies
+      community.general.npm:
+        path: /app
+
+    - name: Copy service file
+      template:
+        src: user.service.j2
+        dest: /etc/systemd/system/user.service
+
+    - name: Deamon Reload
+      systemd_service:
+        name: user
+        daemon_reload: true
+
+    - name: Enable and start Service
+      service:
+        name: user
+        state: started
+        enabled: yes
+
+
