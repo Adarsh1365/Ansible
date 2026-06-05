@@ -2,14 +2,14 @@
   hosts: frontend
   become: yes
   tasks:
-    - name: Install Python
+    - name: Install frontend
       command: dnf module enable nginx:1.24 -y
     - name: Install Nginx
       package:
         name: nginx
         state: present
 
-    - name: Enable payment service
+    - name: Enable nginx service
       service:
         name: nginx
         state: started
@@ -55,12 +55,13 @@
       file:
         path: /etc/nginx/nginx.conf
         state: absent
+
     - name: copy nginx conf
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/nginx.conf
 
-    - name: Enable payment service
+    - name: Enable nginx service
       service:
         name: frontend
         state: restarted
