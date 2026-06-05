@@ -53,13 +53,13 @@
 
     - name: remove nginx default conf
       file:
-        path: /etc/nginx/nginx.conf.j2
+        path: /etc/nginx/nginx.conf
         state: absent
     - name: copy nginx conf
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/nginx.conf
-        
+
     - name: Enable payment service
       service:
         name: frontend
