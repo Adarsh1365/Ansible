@@ -1,4 +1,4 @@
-- name: Setting Catalogue
+- name: Setting cart
   hosts: cart
   become: yes
   tasks:
