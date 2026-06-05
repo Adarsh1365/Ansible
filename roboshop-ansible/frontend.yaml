@@ -1,2 +1,6 @@
-- name: Setting frontend
+- name: Setting Payment
   hosts: frontend
+  become: yes
+  tasks:
+
+
