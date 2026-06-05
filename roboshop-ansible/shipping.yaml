@@ -7,8 +7,8 @@
         name: "{{ item }}"
         state: present
       loop:
-      - maven
-      - mysql
+        - maven
+        - mysql
 
     - name: Create Systemuser
       user:
@@ -77,16 +77,16 @@
 
     - name: Load Schema
       community.mysql.mysql_db:
-        name: all
         state: import
-        login_host: "{{ MYSQL_HOST }}"
+        name: all
         login_user: root
         login_password: RoboShop@1
+        login_host: "{{ MYSQL_HOST }}"
         target: "{{ item }}"
         loop:
-        - /app/db/schema.sql
-        - /app/db/app-user.sql
-        - /app/db/master-data.sql
+          - /app/db/schema.sql
+          - /app/db/app-user.sql
+          - /app/db/master-data.sql
 
     - name: Service restart
       service:
