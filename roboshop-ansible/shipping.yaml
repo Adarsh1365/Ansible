@@ -1,5 +1,5 @@
-- name: Setting Catalogue
-  hosts: cart
+- name: Setting Shipping
+  hosts: shipping
   become: yes
   tasks:
     - name: Install Maven
@@ -69,8 +69,29 @@
         name: shipping
         state: started
         enabled: yes
+    - name: install python dependencies
+      pip:
+        name: PyMySQL
+        executable: pip3.9
 
     - name: Load Schema
+      community.mysql.mysql_db:
+        name: all
+        state: import
+        target: {{ item }}
+        login_host: {{ MYSQL_HOST }}
+        login_user: root
+        login_password: Adarsh@1365
+        loop:
+          - /app/db/schema.sql
+          - /app/db/app-user.sql
+          - /app/db/master-data.sql
+
+    - name: Service restart
+      service:
+        name: shipping
+        state: restarted
+
 
 
 

@@ -91,5 +91,3 @@
         name: catalogue
         state: started
         enabled: yes
-
-    - name: Check db already available

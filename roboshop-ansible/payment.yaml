@@ -1,0 +1,45 @@
+- name: Setting Payment
+  hosts: payment
+  become: yes
+  tasks:
+    - name: Install Maven
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - maven
+        - mysql
+
+    - name: Create Systemuser
+      user:
+        name: roboshop
+        system: true
+        home: /app
+        shell: /sbin/nologin
+        comment: 'roboshop system user'
+
+    - name: delete app folder
+      file:
+        path: /app
+        state: absent
+
+    - name: delete temp file
+      file:
+        path: /tmp/shipping.zip
+        state: absent
+
+    - name: create new app folder
+      file:
+        path: /app
+        state: directory
+
+    - name: download code
+      get_url:
+        url: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
+        dest: /tmp/shipping.zip
+
+    - name: Unzip File
+      unarchive:
+        src: /tmp/cart.zip
+        dest: /app
+        remote_src: yes
