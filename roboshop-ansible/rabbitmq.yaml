@@ -22,7 +22,7 @@
         password: roboshop123
         topic_permissions:
           - vhost: /
-            exchange: amq.topic
+            configure_priv: .*
             read_priv: .*
-            write_priv: 'prod\\.logging\\..*'
+            write_priv: .*
         state: present
