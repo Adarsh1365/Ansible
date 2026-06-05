@@ -5,3 +5,7 @@ REDIS_HOST: redis.adarshdevopslearn.online
 MYSQL_HOST: mysql.adarshdevopslearn.online
 RABBITMQ_HOST: rabbitmq.adarshdevopslearn.online
 CATALOGUE_HOST: catalogue.adarshdevopslearn.online
+CART_HOST: cart.adarshdevopslearn.online
+SHIPPING_HOST: shipping.adarshdevopslearn.online
+USER_HOST: user.adarshdevopslearn.online
+PAYMENT_HOST: payment.adarshdevopslearn.online

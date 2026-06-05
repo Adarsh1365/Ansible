@@ -4,8 +4,11 @@
   tasks:
     - name: Install Maven
       package:
-        name: maven
+        name: "{{ item }}"
         state: present
+      loop:
+        - maven
+        - mysql
 
     - name: Create Systemuser
       user:
@@ -46,4 +49,28 @@
       args:
         chdir: /app
 
-    - name:
+    - name: Move jar file
+      command: mv target/shipping-1.0.jar shipping.jar
+      args:
+        chdir: /app
+
+    - name: Copy shipping service
+      template:
+        src: shipping.service.j2
+        dest: /etc/systemd/system/shipping.service
+
+    - name: system demon reload
+      systemd_service:
+        name: shipping
+        daemon_reload: true
+
+    - name: Enable shipping service
+      service:
+        name: shipping
+        state: started
+        enabled: yes
+
+    - name: Load Schema
+
+
+
