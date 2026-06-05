@@ -2,8 +2,9 @@
   hosts: frontend
   become: yes
   tasks:
-    - name: Install frontend
+    - name: enable frontend
       command: dnf module enable nginx:1.24 -y
+
     - name: Install Nginx
       package:
         name: nginx
@@ -63,7 +64,7 @@
 
     - name: Enable nginx service
       service:
-        name: frontend
+        name: nginx
         state: restarted
 
 
