@@ -54,7 +54,7 @@
     - name: Copy payment service
       template:
         src: payment.service.j2
-        dest: /etc/systemd/system/payment.service.j2
+        dest: /etc/systemd/system/payment.service
 
     - name: system demon reload
       systemd_service:
