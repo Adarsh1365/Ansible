@@ -1,0 +1,43 @@
+
+- name: "{{ component }} App setup"
+  import_role:
+    name: common
+    tasks_from: app-setup
+
+- name: NodeJs Setup
+  import_role:
+    name: common
+    tasks_from: nodejs-setup
+
+- name: systemd setup
+  import_role:
+    name: common
+    tasks_from: system-setup
+
+- name: Copy Mongo repo
+  copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/
+
+- name: Install mongodb client
+  package:
+    name: mongodb-mongosh
+    state: present
+
+- name: Check Products already loaded
+  shell : mongosh --host "{{ MONGODB_HOST }}" --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  register: catalogue_output
+
+- name: load Products if not exists
+  shell : mongosh --host {{ MONGODB_HOST }} </app/db/master-data.js
+  when: catalogue_output.stdout | int < 0
+
+- name: Deamon Reload
+  systemd_service:
+    name: catalogue
+    daemon_reload: true
+
+- name: restart service
+  import_role:
+    name: common
+    tasks_from: restart
