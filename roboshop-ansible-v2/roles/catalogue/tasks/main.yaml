@@ -59,6 +59,7 @@
     name: catalogue
     state: started
     enabled: yes
+
 - name: Copy Mongo repo
   copy:
     src: mongo.repo
