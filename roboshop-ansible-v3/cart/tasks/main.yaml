@@ -1,61 +1,19 @@
-- name: Enable NodeJs
-  command: dnf module enable nodejs:20 -y
+- name: "{{ component }} setup"
+  import_role:
+    name: common
+    tasks_from: app-setup
 
-- name: Install NodeJs
-  package:
-    name: nodejs
-    state: present
+- name: Nodejs setup
+  import_role:
+    name: common
+    tasks_from: nodejs-setup
 
-- name: Create Systemuser
-  user:
-    name: roboshop
-    system: true
-    home: /app
-    shell: /sbin/nologin
-    comment: 'roboshop system user'
+- name: Systemd setup
+  import_role:
+    name: common
+    tasks_from: system-setup
 
-- name: delete app folder
-  file:
-    path: /app
-    state: absent
-
-- name: delete temp file
-  file:
-    path: /tmp/cart.zip
-    state: absent
-
-- name: create new app folder
-  file:
-    path: /app
-    state: directory
-
-- name: download code
-  get_url:
-    url: https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
-    dest: /tmp/cart.zip
-
-- name: Unzip File
-  unarchive:
-    src: /tmp/cart.zip
-    dest: /app
-    remote_src: yes
-
-- name: install npm dependencies
-  community.general.npm:
-    path: /app
-
-- name: Copy service file
-  template:
-    src: cart.service.j2
-    dest: /etc/systemd/system/cart.service
-
-- name: Deamon Reload
-  systemd_service:
-    name: cart
-    daemon_reload: true
-
-- name: Enable and start Service
-  service:
-    name: cart
-    state: started
-    enabled: yes
+- name: Restart service
+  import_role:
+    name: common
+    tasks_from: restart

@@ -1,0 +1,13 @@
+- name: Install Python
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - python
+    - gcc
+    - python3-devel
+
+- name: install dependencies
+  pip:
+    requirements: /app/requirements.txt
+    executable: pip3.9

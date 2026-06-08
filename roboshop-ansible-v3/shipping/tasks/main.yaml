@@ -1,70 +1,23 @@
-- name: Install Maven
+- name: "{{ component }} setup"
+  import_role:
+    name: common
+    tasks_from: app-setup
+
+- name: Java setup
+  import_role:
+    name: common
+    tasks_from: java-setup
+
+- name: Install SQl client
   package:
-    name: "{{ item }}"
+    name: mysql
     state: present
-  loop:
-    - maven
-    - mysql
 
-- name: Create Systemuser
-  user:
-    name: roboshop
-    system: true
-    home: /app
-    shell: /sbin/nologin
-    comment: 'roboshop system user'
+- name: System setup
+  import_role:
+    name: common
+    tasks_from: system-setup
 
-- name: delete app folder
-  file:
-    path: /app
-    state: absent
-
-- name: delete temp file
-  file:
-    path: /tmp/shipping.zip
-    state: absent
-
-- name: create new app folder
-  file:
-    path: /app
-    state: directory
-
-- name: download code
-  get_url:
-    url: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
-    dest: /tmp/shipping.zip
-
-- name: Unzip File
-  unarchive:
-    src: /tmp/shipping.zip
-    dest: /app
-    remote_src: yes
-
-- name: install Maven dependencies
-  command: mvn clean package
-  args:
-    chdir: /app
-
-- name: Move jar file
-  command: mv target/shipping-1.0.jar shipping.jar
-  args:
-    chdir: /app
-
-- name: Copy shipping service
-  template:
-    src: shipping.service.j2
-    dest: /etc/systemd/system/shipping.service
-
-- name: system demon reload
-  systemd_service:
-    name: shipping
-    daemon_reload: true
-
-- name: Enable shipping service
-  service:
-    name: shipping
-    state: started
-    enabled: yes
 
 - name: install python dependencies
   pip:
@@ -85,6 +38,6 @@
     - /app/db/master-data.sql
 
 - name: Service restart
-  service:
-    name: shipping
-    state: restarted
+  import_role:
+    name: common
+    tasks_from: restart

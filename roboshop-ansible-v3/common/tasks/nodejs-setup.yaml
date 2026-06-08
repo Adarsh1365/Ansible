@@ -1,0 +1,11 @@
+- name: Enable NodeJs
+  command: dnf module enable nodejs:20 -y
+
+- name: Install NodeJs
+  package:
+    name: nodejs
+    state: present
+
+- name: install npm dependencies
+  community.general.npm:
+    path: /app

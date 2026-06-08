@@ -1,0 +1,34 @@
+
+- name: Create Systemuser
+  user:
+    name: roboshop
+    system: true
+    home: /app
+    shell: /sbin/nologin
+    comment: 'roboshop system user'
+
+- name: delete app folder
+  file:
+    path: /app
+    state: absent
+
+- name: delete temp file
+  file:
+    path: "/tmp/{{ component }}.zip"
+    state: absent
+
+- name: create new app folder
+  file:
+    path: /app
+    state: directory
+
+- name: download code
+  get_url:
+    url: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip"
+    dest: "/tmp/{{ component }}.zip"
+
+- name: Unzip File
+  unarchive:
+    src: "/tmp/{{ component }}.zip"
+    dest: /app
+    remote_src: yes
