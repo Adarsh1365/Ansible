@@ -1,0 +1,64 @@
+- name: Install Maven
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - python
+    - gcc
+    - python3-devel
+
+- name: Create Systemuser
+  user:
+    name: roboshop
+    system: true
+    home: /app
+    shell: /sbin/nologin
+    comment: 'roboshop system user'
+
+- name: delete app folder
+  file:
+    path: /app
+    state: absent
+
+- name: delete temp file
+  file:
+    path: /tmp/payment.zip
+    state: absent
+
+- name: create new app folder
+  file:
+    path: /app
+    state: directory
+
+- name: download code
+  get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip
+    dest: /tmp/payment.zip
+
+- name: Unzip File
+  unarchive:
+    src: /tmp/payment.zip
+    dest: /app
+    remote_src: yes
+
+- name: install dependencies
+  pip:
+    requirements: /app/requirements.txt
+    executable: pip3.9
+
+
+- name: Copy payment service
+  template:
+    src: payment.service.j2
+    dest: /etc/systemd/system/payment.service
+
+- name: system demon reload
+  systemd_service:
+    name: payment
+    daemon_reload: true
+
+- name: Enable payment service
+  service:
+    name: payment
+    state: started
+    enabled: yes
