@@ -14,8 +14,8 @@
     enabled: yes
 - name: create rabbitmq user
   community.rabbitmq.rabbitmq_user:
-    user: roboshop
-    password: roboshop123
+    user: "{{ Rabbitmq_User }}"
+    password: "{{ Rabbitmq_Password }}"
     permissions:
       - vhost: /
         configure_priv: .*
